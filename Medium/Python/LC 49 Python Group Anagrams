@@ -1,0 +1,23 @@
+class Solution:
+
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagrams_dict = dict()
+        
+        for str1 in strs:
+            char_cnt = [0 for i in range(26)]
+            for char in str1:
+                char_cnt[ord(char)-ord('a')] += 1
+            char_cnt = tuple(char_cnt)
+        
+            if char_cnt in anagrams_dict:
+                anagrams_dict[char_cnt].append(str1)
+            else:
+                anagrams_dict[char_cnt]=[str1]
+                
+        result_list = []
+        for k,v in anagrams_dict.items():
+            result_list.append(v)
+        return result_list
+        
+        
+ # Core: using tuple to convert list into hashable key
