@@ -38,3 +38,6 @@ BEGIN
       FROM Employee) a where rnk<=N
   );
 END
+
+# Key Takeaway: 
+# Use dense_rank to provide ranking 
