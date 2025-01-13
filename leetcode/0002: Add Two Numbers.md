@@ -65,33 +65,46 @@ Solution 2: One pass solution
 #         self.val = val
 #         self.next = next
 
-# Basic idea: one-pass solution, not finished. 
+# Basic idea: one-pass solution, can optimize 
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-
-        # do basic setup 
+        
         l1_cur_val = l1.val 
-        l2_cur_val = l2.val 
-        sum_to_next_digit = (l1_cur_val + l2_cur_val) // 10
+        l2_cur_val = l2.val
+        sum_to_next_digit = (l1_cur_val + l2_cur_val) // 10 
 
-        next_node = ListNode()
-        res = ListNode(val = (l1_cur_val + l2_cur_val) % 10, next = next_node)
+        res = ListNode((l1_cur_val + l2_cur_val) % 10, None)
+        current_node = res
 
-        while (l1.next is not None) or (l2.next is not None): 
-            l1 = l1.next if l1 is not None else l1
-            l2 = l2.next if l2 is not None else l2
+        l1 = l1.next
+        l2 = l2.next
+         
+        while (l1 is not None) or (l2 is not None): 
+    
+            # calcualte the current number 
+            l1_cur_val = l1.val if l1 is not None else 0
+            l2_cur_val = l2.val if l2 is not None else 0
 
-            l1_val = l1.val if l1 is not None else 0
-            l2_val = l2.val if l2 is not None else 0 
+            next_node = ListNode((l1_cur_val + l2_cur_val + sum_to_next_digit) % 10, None)
+            sum_to_next_digit = (l1_cur_val + l2_cur_val + sum_to_next_digit) // 10 
 
-            cur_digit = (l1_val + l2_val + sum_to_next_digit) % 10 
-            sum_to_next_digit = (l1_val + l2_val + sum_to_next_digit) // 10
+            # still at least 1 more digit to process
+            current_node.next = next_node 
+            current_node = next_node 
+
+            # still digit 
+            l1 = l1.next if l1 is not None else None 
+            l2 = l2.next if l2 is not None else None 
             
-            next_next_node = ListNode()
-            next_node.val = cur_digit
-            next_node.next =  next_next_node
-            next_node = next_next_node
-      
-        return res
+        # read the current number 
+        if sum_to_next_digit == 0: return res
+        else: 
+            current_node.next = ListNode(1, None)
+            return res
 
 ```
