@@ -22,21 +22,23 @@ class Solution:
         
 ```
 
-Some other cool solutions
+Some other cool solutions (really gotta think more on the two-pointer general approach lol 
 ```python
 # from https://leetcode.com/problems/longest-substring-without-repeating-characters/solutions/3649636/3-methods-c-java-python-beginner-friendl-ck47/
 class Solution:
     def lengthOfLongestSubstring(self, s: str) -> int:
         n = len(s)
         maxLength = 0
-        charIndex = [-1] * 128
+        charMap = {}
         left = 0
         
         for right in range(n):
-            if charIndex[ord(s[right])] >= left:
-                left = charIndex[ord(s[right])] + 1
-            charIndex[ord(s[right])] = right
-            maxLength = max(maxLength, right - left + 1)
+            if s[right] not in charMap or charMap[s[right]] < left:
+                charMap[s[right]] = right
+                maxLength = max(maxLength, right - left + 1)
+            else:
+                left = charMap[s[right]] + 1
+                charMap[s[right]] = right
         
         return maxLength
 
