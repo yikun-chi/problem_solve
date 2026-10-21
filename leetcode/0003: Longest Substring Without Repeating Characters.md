@@ -43,3 +43,26 @@ class Solution:
         return maxLength
 
 ```
+
+This solution is interesting. So at the core we have a sliding window, expanding to the right while keep track of "what if the next letter is x, then where would the new left start be" 
+``` Python
+from collections import Counter
+
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        n = len(s)
+        ans = 0
+        # charToNextIndex stores the index after current character
+        charToNextIndex = {}
+
+        i = 0
+        # try to extend the range [i, j]
+        for j in range(n):
+            if s[j] in charToNextIndex:
+                i = max(charToNextIndex[s[j]], i)
+
+            ans = max(ans, j - i + 1)
+            charToNextIndex[s[j]] = j + 1
+
+        return ans
+```
