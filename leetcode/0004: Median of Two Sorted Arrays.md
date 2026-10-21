@@ -57,3 +57,5 @@ class Solution:
                 _ = get_min()
             return get_min()
 ```
+
+This is basically a review of implementing different sorting algorithm, especially binary and merge sort... gotta go read the solution again. 
