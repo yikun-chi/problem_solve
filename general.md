@@ -3,4 +3,4 @@
 - time complexity
   - 2-sum: $O(n log(n)) + O(n)$
   - 3-sum: $O(n log(n)) + O(n^2)$
-  - k-sum: $O(n log(n)) + O(n^(k-1))$
+  - k-sum: $O(n log(n)) + O(n^{k-1})$
