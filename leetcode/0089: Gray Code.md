@@ -26,3 +26,14 @@ class Solution:
             return [int(bin_sol,2) for bin_sol in new_binary_solution]
 
 ```
+
+Slightly optimized solution - same logic, except save binary conversion. Time Complexity: O(2**n)
+```python
+class Solution:
+    def grayCode(self, n: int) -> list[int]:
+        if n == 1: 
+            return [0,1]
+        else: 
+            prev_sol = self.grayCode(n-1)
+            return prev_sol + [(2**(n-1) + x) for x in reversed(prev_sol)]
+```
